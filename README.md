@@ -2,7 +2,7 @@
 
 Udacity MyReads Project adapted from the stater template.
 
-## TL;DR
+## Installation
 
 To get started developing right away:
 

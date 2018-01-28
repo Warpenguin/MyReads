@@ -10,15 +10,25 @@ class SearchBooks extends Component {
     }
 
     searchQuery = (query) => {
+        this.setState({ query })
+        query ?
         BooksAPI.search(query).then(queryBooks => {
-            queryBooks && queryBooks.length > 0 && this.setState({
+            queryBooks && queryBooks.length > 0 && this.state.query ? this.setState({
                 queryBooks: queryBooks.map((queryBook) => {
                     var book = this.props.books.find((book) => book.id === queryBook.id)
                     queryBook.shelf = book ? book.shelf : 'none'
                     return queryBook
                 })
-            })
-        })
+            }) : this.setState({ queryBooks: [] })
+        }) : this.setState({ queryBooks: [] })
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        // -- only update if queryBooks differ
+        if (this.state.queryBooks === nextState.queryBooks) {
+            return false
+        }
+        return true
     }
 
     render() {

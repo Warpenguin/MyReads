@@ -1,6 +1,8 @@
 # MyReads Project
 
-Udacity MyReads Project adapted from the stater template.
+This is my implemnetation of the MyReads project as part of the Udacity React Nanodegree Program.
+
+MyReads is a book tracking web application that allows you to search for and categorize books by *Currently Reading*, *Want to Read*, and *Read*.
 
 ## Installation
 
@@ -53,4 +55,4 @@ search(query)
 * These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
 
 ## Important
-The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
+The book search API uses fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend.

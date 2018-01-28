@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { DebounceInput } from 'react-debounce-input';
 import * as BooksAPI from './BooksAPI'
 import BookShelf from './BookShelf'
 import './App.css'
@@ -12,15 +13,15 @@ class SearchBooks extends Component {
     searchQuery = (query) => {
         this.setState({ query })
         query ?
-        BooksAPI.search(query).then(queryBooks => {
-            queryBooks && queryBooks.length > 0 && this.state.query ? this.setState({
-                queryBooks: queryBooks.map((queryBook) => {
-                    var book = this.props.books.find((book) => book.id === queryBook.id)
-                    queryBook.shelf = book ? book.shelf : 'none'
-                    return queryBook
-                })
+            BooksAPI.search(query).then(queryBooks => {
+                queryBooks && queryBooks.length > 0 && this.state.query ? this.setState({
+                    queryBooks: queryBooks.map((queryBook) => {
+                        var book = this.props.books.find((book) => book.id === queryBook.id)
+                        queryBook.shelf = book ? book.shelf : 'none'
+                        return queryBook
+                    })
+                }) : this.setState({ queryBooks: [] })
             }) : this.setState({ queryBooks: [] })
-        }) : this.setState({ queryBooks: [] })
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -39,7 +40,11 @@ class SearchBooks extends Component {
                     <div className="search-books-bar">
                         <Link className="close-search" to="/">Back </Link>
                         <div className="search-books-input-wrapper">
-                            <input type="text" placeholder="Search by title or author"
+                            <DebounceInput
+                                type="text"
+                                placeholder="Search by title or author"
+                                minLength={1}
+                                debounceTimeout={200}
                                 onChange={(event) => this.searchQuery(event.target.value)} />
                         </div>
                     </div>
